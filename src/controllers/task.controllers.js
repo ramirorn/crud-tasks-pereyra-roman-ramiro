@@ -1,5 +1,6 @@
 import { Task } from "../models/task.model.js";
 
+//Creacion de tareas
 export const createNewTask = async (req,res) => {
     const {title, description, isComplete} = req.body;
     if (req.body) {
@@ -18,4 +19,40 @@ export const createNewTask = async (req,res) => {
     } catch (err) {
         
     }
-}
+};
+
+export const getAllTasks = async (req,res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+    
+};
+
+export const getTaskById = async (req,res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+    
+};
+
+export const updateTask = async (req,res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+    
+};
+
+export const deleteTask = async (req,res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+    
+};
