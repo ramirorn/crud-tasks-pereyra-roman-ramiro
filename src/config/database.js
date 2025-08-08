@@ -13,7 +13,7 @@ export const sequelize = new Sequelize(
     
 );
 
-export const startDB = async () => {
+export const startDb = async () => {
     try {
         await sequelize.authenticate();
         console.log("Conexion exitosa con la base de datos");

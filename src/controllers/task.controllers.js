@@ -14,6 +14,7 @@ export const createNewTask = async (req,res) => {
         if (title === undefined || title === "") return res.status(400).json({errormessage: "Title no puede estar vacio"})
         if (description === undefined || description === "") return res.status(400).json({errormessage: "Description no puede estar vacio"})
         if (isComplete === undefined || isComplete === "") return res.status(400).json({errormessage: "IsComplete no puede estar vacio"})
+        
     } catch (err) {
         
     }
