@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { createNewTask,
+import {
+    createNewTask,
     getAllTasks,
     getTaskById,
     updateTask,

@@ -27,7 +27,7 @@ export const createNewTask = async (req,res) => {
         const task = await Task.create({title, description, isComplete})
         res.status(201).json(task);
     } catch (err) {
-        
+        res.status(500).json({ error: err.message });
     }
 };
 
@@ -38,8 +38,8 @@ export const getAllTasks = async (req,res) => {
         if (tasks.length === 0) return res.status(404).json({ errormessage: "No hay tareas en la base de datos"});
 
         return res.status(200).json(tasks)
-    } catch (error) {
-        
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
     
 };
@@ -52,8 +52,8 @@ export const getTaskById = async (req,res) => {
         } else {
             res.status(404).json( {message: "Tarea no encontrada"} );  
         }
-    } catch (error) {
-        
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
     
 };
@@ -82,8 +82,8 @@ export const updateTask = async (req,res) => {
         const [updated] = await Task.update(req.body, {where: {id:req.params.id}});
         if (updated > 0) return res.status(200).json({message: "La tarea fue actualizada con exito"});
         return res.status(404).json({ message: "Tarea no encontrada"})
-    } catch (error) {
-        
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
     
 };
@@ -96,8 +96,8 @@ export const deleteTask = async (req,res) => {
         } else {
             res.status(404).json({message: "Tarea no encontrada"})
         }
-    } catch (error) {
-        
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
     
 };
