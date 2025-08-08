@@ -42,6 +42,9 @@ export const getUserById = async (req,res) => {
 export const updateUser = async (req,res) => {
     try {
         const [updated] = await User.update(req.body, {where: {id:req.params.id}});
+
+        if(updated > 0) return res.status(200).json({message: "El usuario fue actualizado exitosamente"});
+        return res.status(404).json({message:"El usuario no fue encontado"})
     } catch (error) {
         
     }
@@ -51,6 +54,11 @@ export const updateUser = async (req,res) => {
 export const deleteUser = async (req,res) => {
     try {
         const deleted = await User.destroy({where: {id: req.params.id}})
+        if (deleted) {
+            res.json({message: "Usuario borrado exitosamente"})
+        } else {
+            res.status(404).json({message: "Usuario no encontrado"})
+        }
     } catch (error) {
         
     }
