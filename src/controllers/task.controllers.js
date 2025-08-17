@@ -1,4 +1,4 @@
-import { Task } from "../models/task.model.js";
+import { Task, User } from "../models/index.js"
 
 //Creacion de tareas
 export const createNewTask = async (req, res) => {
@@ -12,6 +12,10 @@ export const createNewTask = async (req, res) => {
     };
 
     try {
+        // Validar la existencia del usuario
+        const user = await User.findByPk(user_id);
+        if (!user) return res.status(404).json({ errormessage: "El usuario no existe"});
+
         //Validaciones de title
         if (title === undefined || title === "") return res.status(400).json({ errormessage: "Title no puede estar vacio" })
         if (title.length > 100) return res.status(400).json({ errormessage: "El titulo no debe superar los 100 caracteres" })
@@ -23,8 +27,9 @@ export const createNewTask = async (req, res) => {
         if (description === undefined || description === "") return res.status(400).json({ errormessage: "La descripcion no debe estar vacia" })
         //Validaciones de isComplete
         if (typeof isComplete !== "boolean") return res.status(400).json({ errormessage: "Debe ser un valor booleano" })
-        //Creacion de los personajes
-        const task = await Task.create({ title, description, isComplete })
+        
+        //Creacion de la tarea asociada al usuario
+        const task = await Task.create({ title, description, isComplete, user_id })
         res.status(201).json(task);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -33,7 +38,10 @@ export const createNewTask = async (req, res) => {
 
 export const getAllTasks = async (req, res) => {
     try {
-        const tasks = await Task.findAll();
+        //Incluye el modelo de User al momento de traer todas las tareas
+        const tasks = await Task.findAll({
+            include: [{model: User, as: "user", attributes: ["id","name", "email"]}]
+        });
 
         if (tasks.length === 0) return res.status(404).json({ errormessage: "No hay tareas en la base de datos" });
 
@@ -46,7 +54,9 @@ export const getAllTasks = async (req, res) => {
 
 export const getTaskById = async (req, res) => {
     try {
-        const task = await Task.findByPk(req.params.id);
+        const task = await Task.findByPk(req.params.id, {
+            include: [{ model: User, as: "user", attributes: ["id","name","email"]}]
+        });
         if (task) {
             res.status(200).json(task)
         } else {

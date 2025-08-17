@@ -1,4 +1,4 @@
-import { User } from "../models/user.model.js";
+import {User, Task} from "../models/index.js"
 
 //Creacion de tareas
 export const createNewUser = async (req, res) => {
@@ -34,7 +34,8 @@ export const createNewUser = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
     try {
-        const users = await User.findAll();
+        //Trae todos los usuarios con sus tareas asociadas
+        const users = await User.findAll({include:[{model: Task, as: "tasks"}]});
 
         if (users.length === 0) return res.status(404).json({ errormessage: "No hay usuarios en la base de datos" });
 
@@ -47,7 +48,9 @@ export const getAllUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
     try {
-        const user = await User.findByPk(req.params.id);
+        //Trae todos los usuarios con sus tareas asociadas
+        const user = await User.findByPk(req.params.id, {
+            include:[{ model: Task, as: "tasks"}]});
         if (user) {
             res.status(200).json(user)
         } else {

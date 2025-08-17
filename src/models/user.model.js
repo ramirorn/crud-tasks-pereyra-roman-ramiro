@@ -11,4 +11,3 @@ export const User = sequelize.define(
     },
 );
 
-User.hasMany(Task, {foreignKey: "user_id", as: "user"});

@@ -11,4 +11,3 @@ export const Task = sequelize.define(
     }
 );
 
-Task.belongsTo(User, {foreignKey: "user_id", as: "user"})
