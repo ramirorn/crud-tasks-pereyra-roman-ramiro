@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.js";
+import { Task } from "./task.model.js";
 
 export const User = sequelize.define(
     "User",
@@ -9,3 +10,5 @@ export const User = sequelize.define(
         password: { type: DataTypes.STRING(100), allowNull: false },
     },
 );
+
+User.hasMany(Task, {foreignKey: "user_id", as: "user"});
