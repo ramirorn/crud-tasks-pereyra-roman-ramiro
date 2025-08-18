@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.js";
+import { AddressModel } from "./address.model.js";
 
 export const UserModel = sequelize.define(
     "User",
@@ -10,12 +11,12 @@ export const UserModel = sequelize.define(
     },
 );
 
-// User.hasMany(Task, {
-//     foreignKey:"user_id",
-//     as: "user"
-// })
+UserModel.hasOne(AddressModel, {
+    foreignKey: "address_id",
+    as: "usuario"
+})
 
-// Task.belongsTo(User, {
-//     foreignKey: "user_id",
-//     as: "tasks"
-// })
+AddressModel.belongsTo(UserModel, {
+    foreignKey: "address_id",
+    as: "address"
+})
