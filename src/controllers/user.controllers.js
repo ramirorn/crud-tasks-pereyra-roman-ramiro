@@ -24,8 +24,8 @@ export const createNewUser = async (req, res) => {
         if (password === undefined || password === "") return res.status(400).json({ errormessage: "La contraseña no debe estar vacia" })
 
         //Creacion de los personajes
-        const UserModel = await UserModel.create({ name, email, password })
-        res.status(201).json(UserModel);
+        const usuarios = await UserModel.create({ name, email, password })
+        res.status(201).json(usuarios);
     } catch (err) {
         res.status(500).json({ error: err.message });
         console.log(err)
@@ -35,7 +35,7 @@ export const createNewUser = async (req, res) => {
 export const getAllUser = async (req, res) => {
     try {
         //Trae todos los usuarios con sus tareas asociadas
-        const UserModels = await UserModel.findAll({include:[{model: Task, as: "tasks"}]});
+        const UserModels = await UserModel.findAll();
 
         if (UserModels.length === 0) return res.status(404).json({ errormessage: "No hay usuarios en la base de datos" });
 
@@ -49,10 +49,10 @@ export const getAllUser = async (req, res) => {
 export const getUserById = async (req, res) => {
     try {
         //Trae todos los usuarios con sus tareas asociadas
-        const UserModel = await UserModel.findByPk(req.params.id, {
+        const user = await UserModel.findByPk(req.params.id, {
             include:[{ model: Task, as: "tasks"}]});
-        if (UserModel) {
-            res.status(200).json(UserModel)
+        if (user) {
+            res.status(200).json(user)
         } else {
             res.status(404).json({ message: "Usuario no encontrado" });
         }

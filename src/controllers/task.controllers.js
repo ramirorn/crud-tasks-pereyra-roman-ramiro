@@ -4,7 +4,7 @@ import { UserModel } from "../models/user.model.js";
 
 //Creacion de tareas
 export const createNewTask = async (req, res) => {
-    const { title, description, isComplete } = req.body;
+    const { title, description, isComplete, user_id } = req.body;
     if (req.body) {
         for (let value in req.body) {
             if (typeof req.body[value] === "string") {
@@ -15,8 +15,8 @@ export const createNewTask = async (req, res) => {
 
     try {
         // Validar la existencia del usuario
-        const UserModel = await UserModel.findByPk(UserModel_id);
-        if (!UserModel) return res.status(404).json({ errormessage: "El usuario no existe"});
+        const user = await UserModel.findByPk(user_id);
+        if (!user) return res.status(404).json({ errormessage: "El usuario no existe"});
 
         //Validaciones de title
         if (title === undefined || title === "") return res.status(400).json({ errormessage: "Title no puede estar vacio" })
@@ -31,8 +31,8 @@ export const createNewTask = async (req, res) => {
         if (typeof isComplete !== "boolean") return res.status(400).json({ errormessage: "Debe ser un valor booleano" })
         
         //Creacion de la tarea asociada al usuario
-        const TaskModel = await TaskModel.create({ title, description, isComplete, UserModel_id })
-        res.status(201).json(TaskModel);
+        const task = await TaskModel.create({ title, description, isComplete, UserModel_id })
+        res.status(201).json(task);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -41,13 +41,13 @@ export const createNewTask = async (req, res) => {
 export const getAllTasks = async (req, res) => {
     try {
         //Incluye el modelo de UserModel al momento de traer todas las tareas
-        const TaskModels = await TaskModel.findAll({
-            include: [{model: UserModel, as: "UserModel", attributes: ["id","name", "email"]}]
+        const tasks = await TaskModel.findAll({
+            include: [{model: UserModel, as: "user", attributes: ["id","name", "email"]}]
         });
 
-        if (TaskModels.length === 0) return res.status(404).json({ errormessage: "No hay tareas en la base de datos" });
+        if (tasks.length === 0) return res.status(404).json({ errormessage: "No hay tareas en la base de datos" });
 
-        return res.status(200).json(TaskModels)
+        return res.status(200).json(tasks)
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -56,11 +56,11 @@ export const getAllTasks = async (req, res) => {
 
 export const getTaskById = async (req, res) => {
     try {
-        const TaskModel = await TaskModel.findByPk(req.params.id, {
-            include: [{ model: UserModel, as: "UserModel", attributes: ["id","name","email"]}]
+        const task = await TaskModel.findByPk(req.params.id, {
+            include: [{ model: UserModel, as: "user", attributes: ["id","name","email"]}]
         });
-        if (TaskModel) {
-            res.status(200).json(TaskModel)
+        if (task) {
+            res.status(200).json(task)
         } else {
             res.status(404).json({ message: "Tarea no encontrada" });
         }
