@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../config/database.js";
-import { AddressModel } from "./address.model.js";
+
 
 export const UserModel = sequelize.define(
     "User",
@@ -11,12 +11,3 @@ export const UserModel = sequelize.define(
     },
 );
 
-UserModel.hasOne(AddressModel, {
-    foreignKey: "address_id",
-    as: "usuario"
-})
-
-AddressModel.belongsTo(UserModel, {
-    foreignKey: "address_id",
-    as: "address"
-})

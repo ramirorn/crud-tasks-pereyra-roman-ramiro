@@ -10,6 +10,7 @@ export const TaskModel = sequelize.define(
         isComplete: { type: DataTypes.BOOLEAN, defaultValue: false }
     }
 );
+
 TaskModel.belongsTo(UserModel, {
     foreignKey: "user_id",
     as: "tasks"
