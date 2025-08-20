@@ -7,6 +7,9 @@ export const CategoriesModel = sequelize.define(
         category_id: {type: DataTypes.INTEGER, primaryKey: true, allowNull: false},
         is_urgent: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false},
         is_group: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false}
+    },
+    {
+        timestamps: false,
     }
 ) 
 

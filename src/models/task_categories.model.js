@@ -18,9 +18,6 @@ export const TaskCategoriesModel = sequelize.define(
     }
 );
 
-// // Relacion muchos a muchos
-// TaskCategoriesModel.belongsTo(TaskModel, {foreignKey: "tasks_id"})
-// TaskCategoriesModel.belongsTo(CategoriesModel, {foreignKey: "category_id"})
 
 TaskModel.belongsToMany(CategoriesModel, {
     through: TaskCategoriesModel,

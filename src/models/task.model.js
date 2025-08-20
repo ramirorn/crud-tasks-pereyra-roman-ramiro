@@ -7,7 +7,10 @@ export const TaskModel = sequelize.define(
     {
         title: { type: DataTypes.STRING(100), unique: true, allowNull: false },
         description: { type: DataTypes.STRING(100), allowNull: false },
-        isComplete: { type: DataTypes.BOOLEAN, defaultValue: false }
+        is_complete: { type: DataTypes.BOOLEAN, defaultValue: false }
+    },
+    {
+        timestamps: false,
     }
 );
 

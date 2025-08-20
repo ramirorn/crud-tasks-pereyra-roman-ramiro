@@ -9,6 +9,9 @@ export const AddressModel = sequelize.define(
         street: { type: DataTypes.STRING(100), allowNull: false},
         street_number: { type: DataTypes.INTEGER, allowNull: false},
         neighborhood: { type: DataTypes.STRING(100), allowNull: false}
+    },
+    {
+        timestamps: false,
     }
 )
 UserModel.belongsTo(AddressModel, {
