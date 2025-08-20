@@ -1,7 +1,7 @@
 import { CategoriesModel } from "../models/categories.model.js";
 
 //Creacion de una categoria
-export const createNewCategorie = async (req, res) => {
+export const createNewCategory = async (req, res) => {
     const { is_urgent, is_group} = req.body;
     if (req.body) {
         for (let value in req.body) {
