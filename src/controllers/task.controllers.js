@@ -31,7 +31,7 @@ export const createNewTask = async (req, res) => {
         if (typeof isComplete !== "boolean") return res.status(400).json({ errormessage: "Debe ser un valor booleano" })
         
         //Creacion de la tarea asociada al usuario
-        const task = await TaskModel.create({ title, description, isComplete, UserModel_id })
+        const task = await TaskModel.create({ title, description, isComplete, user_id })
         res.status(201).json(task);
     } catch (err) {
         res.status(500).json({ error: err.message });
