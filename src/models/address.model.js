@@ -11,7 +11,9 @@ export const AddressModel = sequelize.define(
         neighborhood: { type: DataTypes.STRING(100), allowNull: false}
     },
     {
-        timestamps: false,
+        paranoid: true,
+        createdAt: false,
+        updatedAt: false
     }
 )
 UserModel.belongsTo(AddressModel, {

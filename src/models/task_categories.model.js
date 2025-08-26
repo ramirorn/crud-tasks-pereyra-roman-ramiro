@@ -23,7 +23,8 @@ TaskModel.belongsToMany(CategoriesModel, {
     through: TaskCategoriesModel,
     foreignKey: "task_id",
     otherKey:"category_id",
-    as: "categories"
+    as: "categories",
+    onDelete: "CASCADE"
 
 
 })
@@ -31,6 +32,7 @@ CategoriesModel.belongsToMany(TaskModel, {
     through: TaskCategoriesModel,
     foreignKey: "category_id",
     otherKey: "task_id",
-    as: "tasksByCategory"
+    as: "tasksByCategory",
+    onDelete: "CASCADE"
 
 })

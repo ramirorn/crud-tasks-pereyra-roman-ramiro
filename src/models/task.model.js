@@ -16,11 +16,13 @@ export const TaskModel = sequelize.define(
 
 TaskModel.belongsTo(UserModel, {
     foreignKey: "user_id",
-    as: "user"
+    as: "user",
+    onDelete: "CASCADE"
 })
 
 UserModel.hasMany(TaskModel, {
     foreignKey:"user_id",
-    as: "tasks"
+    as: "tasks",
+    onDelete: "CASCADE"
 })
 
