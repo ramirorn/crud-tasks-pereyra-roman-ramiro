@@ -48,7 +48,7 @@ export const deleteUserValidation = [
 ];
 
 // Validaciones para traer un usuario por ID
-export const getByIdValidation = [
+export const getUserByIdValidation = [
   param("id")
     .notEmpty()
     .withMessage("Debe mandar un id para borrar un usuario")
