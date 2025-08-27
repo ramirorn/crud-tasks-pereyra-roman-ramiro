@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { createNewAddress,
-    getAllAddresses,
-    getAddressById
+import {
+  createNewAddress,
+  getAllAddresses,
+  getAddressById,
 } from "../controllers/address.controllers.js";
 
 const addressRouter = Router();
