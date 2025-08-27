@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { TaskCategoriesModel } from "../../models/task_categories.model";
+import { TaskCategoriesModel } from "../../models/task_categories.model.js";
 
 // Validaciones para crear una relacion entre task y category
 export const taskCategoryCreateValidation = [

@@ -4,14 +4,17 @@ import { UserModel } from "../../models/user.model.js";
 // Validaciones para crear un nuevo usuario
 export const createNewUserValidation = [
   body("name")
-    .trim()
     .notEmpty()
     .withMessage("Name no tiene que estar vacio")
+    .trim()
     .isString()
     .withMessage(
       "Name debe ser una cadena de caracteres, o string para los socios"
     )
-    .isLength({ min: 5, max: 100 }),
+    .isLength({ max: 100 })
+    .custom((value) => {
+      if (name === "") Promise.reject("name no debe estar vacio");
+    }),
   body("email")
     .trim()
     .notEmpty()
